@@ -1,7 +1,7 @@
 require('dotenv').config();
 process.env;
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.REACT_APP_SERVER_URL || 4000;
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -174,23 +174,6 @@ app.get("/post/:id", async (req, res) => {
   const { id } = req.params;
   const postDoc = await Post.findById(id).populate("author", ["username"]);
   res.json(postDoc);
-});
-
-// DELETE post
-app.delete('/delete/:id', async (req, res) => {
-  mongoose.connect(process.env.MONGODB_URL);
-  const { id } = req.params;
-  try {
-    const post = await Post.findByIdAndDelete(id);
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found.' });
-    }
-
-    return res.status(200).json({ message: 'Post deleted successfully.' });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: 'Something went wrong.' });
-  }
 });
 
 app.listen(PORT, () => {
