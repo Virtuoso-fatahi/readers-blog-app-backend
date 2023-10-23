@@ -1,6 +1,7 @@
 require('dotenv').config();
 process.env;
 
+const PORT = process.env.PORT || 4000;
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -30,6 +31,7 @@ const secret = "ajksuiskfbkkfbkd";
 
 // Mongoose Connection
 const db = mongoose.connection;
+ mongoose.connect(process.env.MONGODB_URL);
 db.on("error", console.error.bind(console, "connection error: "));
 db.once("open", function () {
   console.log("Connected successfully");
@@ -191,6 +193,6 @@ app.delete('/delete/:id', async (req, res) => {
   }
 });
 
-app.listen(4000, () => {
-  console.log("Server is running at port 4000");
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
