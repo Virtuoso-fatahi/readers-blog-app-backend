@@ -1,7 +1,7 @@
 require('dotenv').config();
 process.env;
 
-const PORT = process.env.REACT_APP_SERVER_URL || 4000;
+const PORT = process.env.PORT || 4000;
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
